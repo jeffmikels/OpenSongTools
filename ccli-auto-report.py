@@ -68,6 +68,7 @@ last_date = last_report_timestamp
 today = datetime.date.today().strftime('%Y-%m-%d')
 
 toreport = []
+print(f'Looking for unreported sets in {LIBRARY_PATH}')
 lib = OpenSong.Library(LIBRARY_PATH)
 for datestamp in lib.sets:
     songset = lib.sets[datestamp]
@@ -82,18 +83,23 @@ for datestamp in lib.sets:
 sess = requests.Session()
 sess.headers = headers
 
-for songdata in toreport:
-    ccli = songdata['ccli']
-    title = songdata['title']
-    print(f'GRAB SONG DATA FOR #{ccli}')
-    r = sess.get(song_details.format(ccli))
-    if r.status_code == 200:
-        details = r.json()
-        print(f'FOUND DETAILS FOR {details["title"]}... Submitting Report')
-        tosubmit = make_report_data(details['id'], details['title'], details['ccliSongNo'])
-        r = sess.post(report_endpoint, json=tosubmit)
-        print(r.text)
+if len(toreport) == 0:
+    print('Nothing to report.')
+    exit()
 
-history['last_report_timestamp'] = today
-history[today] = toreport
-save()
+else:
+    for songdata in toreport:
+        ccli = songdata['ccli']
+        title = songdata['title']
+        print(f'GRAB SONG DATA FOR #{ccli}')
+        r = sess.get(song_details.format(ccli))
+        if r.status_code == 200:
+            details = r.json()
+            print(f'FOUND DETAILS FOR {details["title"]}... Submitting Report')
+            tosubmit = make_report_data(details['id'], details['title'], details['ccliSongNo'])
+            r = sess.post(report_endpoint, json=tosubmit)
+            print(r.text)
+
+    history['last_report_timestamp'] = today
+    history[today] = toreport
+    save()
