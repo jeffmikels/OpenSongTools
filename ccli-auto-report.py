@@ -42,7 +42,7 @@ def load():
 
 
 def save():
-    open(historyfile, 'w').write(json.dumps(history))
+    open(historyfile, 'w').write(json.dumps(history, indent=2))
 
 
 def make_report_data(id, title, ccli):
@@ -62,9 +62,9 @@ load()
 if 'last_report_timestamp' in history:
     last_report_timestamp = history['last_report_timestamp']
 else:
-    last_report_timestamp = 1601784000  # october 4, 2020
+    last_report_timestamp = '2020-10-04'  # october 4, 2020
 
-last_date = datetime.date.fromtimestamp(last_report_timestamp).strftime('%Y-%m-%d')
+last_date = last_report_timestamp
 today = datetime.date.today().strftime('%Y-%m-%d')
 
 toreport = []
