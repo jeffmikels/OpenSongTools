@@ -1,0 +1,16 @@
+curl 'https://reporting.ccli.com/api/report' \
+  -H 'Connection: keep-alive' \
+  -H 'Accept: application/json, text/plain, */*' \
+  -H 'RequestVerificationToken: [YOURS WILL BE DIFFERENT]' \
+  -H 'client-locale: en-US' \
+  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36' \
+  -H 'Content-Type: application/json' \
+  -H 'Origin: https://reporting.ccli.com' \
+  -H 'Sec-Fetch-Site: same-origin' \
+  -H 'Sec-Fetch-Mode: cors' \
+  -H 'Sec-Fetch-Dest: empty' \
+  -H 'Referer: https://reporting.ccli.com/search?s=nothing%20is%20holding%20me%20back&page=1&category=all' \
+  -H 'Accept-Language: en-US,en;q=0.9,fr;q=0.8' \
+  -H 'Cookie: [YOURS WILL BE DIFFERENT]=[DIFFERENT]' \
+  --data-binary '' \
+  --compressed 
